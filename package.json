@@ -1,0 +1,23 @@
+{
+  "name": "Plataforma-Tutores",
+  "version": "1.0.0",
+  "description": "Repositório para trabalho de Engenharia de Software - Tutores",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitorzmaluf/Plataforma-Tutores.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitorzmaluf/Plataforma-Tutores/issues"
+  },
+  "homepage": "https://github.com/vitorzmaluf/Plataforma-Tutores#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
