@@ -6,6 +6,44 @@ const connection = mysql.createConnection({
   database: 'engsoft2020'
 });
 
+/*
+CRUD:
+READ: connection.query('SELECT * FROM authors', (err,rows) => {
+  if(err) throw err;
+
+  console.log('Data received from Db:');
+  console.log(rows);
+});
+
+CREATE:
+const author = { name: 'Craig Buckler', city: 'Exmouth' };
+connection.query('INSERT INTO authors SET ?', author, (err, res) => {
+  if(err) throw err;
+
+  console.log('Last insert ID:', res.insertId);
+});
+
+UPDATE: 
+connection.query(
+  'UPDATE authors SET city = ? Where ID = ?',
+  ['Leipzig', 3],
+  (err, result) => {
+    if (err) throw err;
+
+    console.log(`Changed ${result.changedRows} row(s)`);
+  }
+);
+
+DELETE: 
+connection.query(
+  'DELETE FROM authors WHERE id = ?', [5], (err, result) => {
+    if (err) throw err;
+
+    console.log(`Deleted ${result.affectedRows} row(s)`);
+  }
+);
+*/
+
 connection.connect((err) => {
   if (err) throw err;
   console.log('Conectado');
