@@ -91,6 +91,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
       user = rows;//atribuicao dos dados recebidos do banco
     });
     if(user.length > 0){
+      console.log("Aluno logou");
       //faz algo se existir um login e senha compatível
     }
     else{
@@ -104,7 +105,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
       user = rows;
     });
     if(user.length > 0){
-
+      console.log("Responsavel logou");
     }
     else{
       console.log("Incorreto");
@@ -117,7 +118,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
       user = rows;
     });
     if(user.length > 0){
-
+      console.log("Tutor logou");
     }
     else{
       console.log("Incorreto");
@@ -126,9 +127,46 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
   else{
     console.log("ERRO");//caso nenhum dos tipos seja selecionado é necessario ocorrer um erro
   }
-
   connection.end();//fecha conexao com banco
-  
+})
+
+app.get('/cadastro', function(req, resp){
+  resp.render('cadastro');
+});
+
+app.post('/cadastro', function(req, resp){
+  const connection = mysql.createConnection({//conexao com o banco
+    host: 'engsoft2020.mysql.dbaas.com.br',
+    user: 'engsoft2020',
+    password: 'a123456',
+    database: 'engsoft2020'
+  });
+  var tipo = req.body.tipo;
+  var nome = req.body.nome;
+  var login = req.body.login;
+  var senha = req.body.senha;
+  if(tipo == 'radAluno'){
+    var query = mysql.format("INSERT into aluno (nome, login, senha) VALUES (?, ?, ?);", [nome, login, senha]);
+    connection.query(query, (err,rows) => {
+      if(err) throw err;
+    });
+  }
+  else if(tipo == 'radResp'){
+    var query = mysql.format("INSERT into responsavel (nome, login, senha) VALUES (?, ?, ?);", [nome, login, senha]);
+    connection.query(query, (err,rows) => {
+      if(err) throw err;
+    });
+  }
+  else if(tipo == 'radTutor'){
+    var query = mysql.format("INSERT into tutor (nome, login, senha) VALUES (?, ?, ?);", [nome, login, senha]);
+    connection.query(query, (err,rows) => {
+      if(err) throw err;
+    });
+  }
+  else{
+    console.log("Erro");
+  }
+  connection.end();
 })
 
 const server = http.createServer(app);//criacao do servidor
