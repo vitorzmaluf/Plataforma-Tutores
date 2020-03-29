@@ -71,3 +71,4 @@ app.get('/', function (req, resp){
 
 const server = http.createServer(app);
 server.listen(1000);
+console.log('Servidor Conectado');
