@@ -1,4 +1,6 @@
 const mysql = require('mysql');
+
+/*
 const connection = mysql.createConnection({
   host: 'engsoft2020.mysql.dbaas.com.br',
   user: 'engsoft2020',
@@ -6,7 +8,13 @@ const connection = mysql.createConnection({
   database: 'engsoft2020'
 });
 
-/*
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Conectado');
+});
+
+connection.end();
+------------------------------------------------------------
 CRUD:
 READ: connection.query('SELECT * FROM authors', (err,rows) => {
   if(err) throw err;
@@ -44,7 +52,5 @@ connection.query(
 );
 */
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('Conectado');
-});
+
+
