@@ -1,5 +1,3 @@
-const mysql = require('mysql');
-
 /*
 const connection = mysql.createConnection({
   host: 'engsoft2020.mysql.dbaas.com.br',
@@ -16,7 +14,8 @@ connection.connect((err) => {
 connection.end();
 ------------------------------------------------------------
 CRUD:
-READ: connection.query('SELECT * FROM authors', (err,rows) => {
+READ: 
+  connection.query('SELECT * FROM authors', (err,rows) => {
   if(err) throw err;
 
   console.log('Data received from Db:');
@@ -55,20 +54,83 @@ connection.query(
 const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
+const mysql = require('mysql');
 
 const app = express();
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');//view engine é ejs
 
-app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));//nao inserir objeto na url
+app.use(bodyParser.json());//parser para json
 
-app.use(express.static("./assets/"));
+app.use(express.static("./assets/"));//funcao para ser possivel renderizar itens estaticos
 
-app.get('/', function (req, resp){
-  resp.render('index');
+app.get('/', function (req, resp){//get index
+  resp.render('index');//renderiza a view correspondente
+});
+app.get('/login', function(req, resp){//get da view login (render normal)
+  resp.render('login');
 });
 
-const server = http.createServer(app);
-server.listen(1000);
+app.post('/login', function(req, resp){//post da view login (consulta o banco)
+  var login = req.body.login;//pega variáveis do formulario
+  var senha = req.body.senha;
+
+  const connection = mysql.createConnection({//conexao com o banco
+    host: 'engsoft2020.mysql.dbaas.com.br',
+    user: 'engsoft2020',
+    password: 'a123456',
+    database: 'engsoft2020'
+  });
+  var user = [];//variavel que vai receber os dados do banco
+  tipo = req.body.tipo;//radio do tipo de usuário
+  if(tipo == "radAluno"){//aluno
+    var query = mysql.format("SELECT * FROM aluno where login=? and senha=?", [login, senha]);//formatacao da query
+    connection.query(query, (err,rows) => {//funcao para aplicar a query
+      if(err) throw err;
+      user = rows;//atribuicao dos dados recebidos do banco
+    });
+    if(user.length > 0){
+      //faz algo se existir um login e senha compatível
+    }
+    else{
+      console.log("Incorreto");//faz algo se nao existir
+    }
+  }
+  else if(tipo == "radResp"){//responsavel
+    var query = mysql.format("SELECT * FROM responsavel where login=? and senha=?", [login, senha]);
+    connection.query(query, (err,rows) => {
+      if(err) throw err;
+      user = rows;
+    });
+    if(user.length > 0){
+
+    }
+    else{
+      console.log("Incorreto");
+    }
+  }
+  else if(tipo == "radTutor"){//tutor
+    var query = mysql.format("SELECT * FROM tutor where login=? and senha=?", [login, senha]);
+    connection.query(query, (err,rows) => {
+      if(err) throw err;
+      user = rows;
+    });
+    if(user.length > 0){
+
+    }
+    else{
+      console.log("Incorreto");
+    }
+  }
+  else{
+    console.log("ERRO");//caso nenhum dos tipos seja selecionado é necessario ocorrer um erro
+  }
+
+  connection.end();//fecha conexao com banco
+  
+})
+
+const server = http.createServer(app);//criacao do servidor
+server.listen(1000);//definicao da porta do servidor
 console.log('Servidor Conectado');
