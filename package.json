@@ -1,10 +1,11 @@
 {
-  "name": "Plataforma-Tutores",
+  "name": "plataforma-tutores",
   "version": "1.0.0",
   "description": "Repositório para trabalho de Engenharia de Software - Tutores",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,6 @@
     "express": "^4.17.1",
     "http": "0.0.1-security",
     "mysql": "^2.18.1"
-  }
+  },
+  "devDependencies": {}
 }

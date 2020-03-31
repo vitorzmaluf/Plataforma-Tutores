@@ -1,0 +1,29 @@
+/*
+    COLORS
+
+    blue #005EA5
+    green #009846
+    red #DC1F27
+    yellow #FFCA06
+    white #EFEFEF
+*/
+
+
+.header
+{
+    background-color: #005EA5;
+    height: 35px;
+}
+
+.img
+{
+    height: 80px;
+    width: 300px;
+    background-color: darkorchid;
+}
+
+.container
+{
+    background-color: #EFEFEF;
+    margin-top: 20px;
+}

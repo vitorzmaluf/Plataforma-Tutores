@@ -63,7 +63,7 @@ app.set('view engine', 'ejs');//view engine é ejs
 app.use(bodyParser.urlencoded({extended:false}));//nao inserir objeto na url
 app.use(bodyParser.json());//parser para json
 
-app.use(express.static("./assets/"));//funcao para ser possivel renderizar itens estaticos
+app.use(express.static("./public"));//funcao para ser possivel renderizar itens estaticos
 
 app.get('/', function (req, resp){//get index
   resp.render('index');//renderiza a view correspondente
