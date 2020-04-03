@@ -1,3 +1,5 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
 :root {
     font-size: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -7,6 +9,7 @@
     --c-green: #009846;
     --c-yellow: #FFCA06;
     --c-white: #EFEFEF;
+    --c-black: #000000;
     --f-link:  #7F7F7F;
 }
 
@@ -14,7 +17,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--c-white);
+    background: url(/img/login-screen.jpg) no-repeat;
+    background-size: cover;
 }
 
 body::-webkit-scrollbar {
@@ -56,7 +60,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .nav-item {
-    height: 6rem;
+    height: 5rem;
     width: 100%;
 }
 
@@ -82,11 +86,7 @@ body::-webkit-scrollbar-thumb {
     background-color: darkorchid;
 }
 
-.formulario {
-    background-color: #EFEFEF;
-    margin-top: 20px;
-}
-
+/*Green btn on Header*/
 .login-pg {
     margin-left: 80%;
     background-color: var(--c-green);
@@ -105,4 +105,45 @@ body::-webkit-scrollbar-thumb {
 .login-txt {
     margin-left: 20%;
     color: var(--c-white);
+}
+
+/*Login page*/
+.formulario {
+    border: 1px solid var(--c-black);
+    border-radius: 10%;
+    padding: 4%;
+    width: 280px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+}
+
+.i-login {
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0;
+    margin: 20px 0;
+    border-bottom: 1px solid var(--c-black);
+}
+
+.i-login input {
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.r-btn {
+    width: 100%;
+    margin: 0;
+    margin-top: 10%;
+    padding: 0;
+}
+
+.btn {
+    margin-top: 10%;
+    margin-left: 50%;
+    transform: translate(-20%, -50%);
 }
