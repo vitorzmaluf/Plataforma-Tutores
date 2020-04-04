@@ -13,8 +13,13 @@
     --f-link:  #7F7F7F;
 }
 
-/*Body configs*/
 body {
+    margin: 0;
+    padding: 0;
+}
+
+/*Body configs*/
+.login-screen {
     margin: 0;
     padding: 0;
     background: url(/img/login-screen.jpg) no-repeat;
@@ -72,6 +77,17 @@ body::-webkit-scrollbar-thumb {
 
 .nav-item:hover{
     background-color: var(--c-white);
+}
+
+.nav-active {
+    height: 5rem;
+    width: 100%;
+    background-color: var(--c-blue);
+}
+
+.nav-active .link-text {
+    color: var(--c-white);
+    margin-left: 2rem;
 }
 
 .link-text {
