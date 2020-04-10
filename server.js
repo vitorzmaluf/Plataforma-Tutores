@@ -76,7 +76,7 @@ app.get('/', function (req, resp){//get index
   resp.render('index');//renderiza a view correspondente
 });
 app.get('/login', function(req, resp){//get da view login (render normal)
-  resp.render('login');
+  resp.render('login', {message: ''});
 });
 
 app.post('/login', function(req, resp){//post da view login (consulta o banco)
@@ -84,52 +84,23 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
   var senha = req.body.senha;
 
   var user = [];//variavel que vai receber os dados do banco
-  tipo = req.body.tipo;//radio do tipo de usuário
-  if(tipo == "radAluno"){//aluno
-    var query = mysql.format("SELECT * FROM aluno where login=? and senha=?", [login, senha]);//formatacao da query
-    connection.query(query, (err,rows) => {//funcao para aplicar a query
-      if(err) throw err;
-      user = rows;//atribuicao dos dados recebidos do banco
-    });
-    if(user.length > 0){
-      console.log("Aluno logou");
+  var query = mysql.format("SELECT * FROM usuarios where login=?;", [login]);//formatacao da query
+  connection.query(query, (err,rows) => {//funcao para aplicar a query
+    if(err) throw err;
+    console.log(rows);//RETORNA UNDEFINED
+    user = rows;//atribuicao dos dados recebidos do banco
+    if(rows && rows[0].senha == senha){
+      console.log("Usuario logado");
       //faz algo se existir um login e senha compatível
     }
     else{
+      msg = 'Usuário incorreto ou inesistente';
+      resp.render('login', {message: msg});
       console.log("Incorreto");//faz algo se nao existir
     }
-  }
-  else if(tipo == "radResp"){//responsavel
-    var query = mysql.format("SELECT * FROM responsavel where login=? and senha=?", [login, senha]);
-    connection.query(query, (err,rows) => {
-      if(err) throw err;
-      user = rows;
-    });
-    if(user.length > 0){
-      console.log("Responsavel logou");
-    }
-    else{
-      console.log("Incorreto");
-    }
-  }
-  else if(tipo == "radTutor"){//tutor
-    var query = mysql.format("SELECT * FROM tutor where login=? and senha=?", [login, senha]);
-    connection.query(query, (err,rows) => {
-      if(err) throw err;
-      user = rows;
-    });
-    if(user.length > 0){
-      console.log("Tutor logou");
-    }
-    else{
-      console.log("Incorreto");
-    }
-  }
-  else{
-    console.log("ERRO");//caso nenhum dos tipos seja selecionado é necessario ocorrer um erro
-  }
-  connection.end();//fecha conexao com banco
-})
+  }).end();//fecha conexao com banco
+  
+});
 
 app.get('/cadastro', function(req, resp){
   resp.render('cadastro');
