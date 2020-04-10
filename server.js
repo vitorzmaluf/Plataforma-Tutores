@@ -56,13 +56,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
-const connection = mysql.createConnection({//conexao com o banco
-  host: 'engsoft2020.mysql.dbaas.com.br',
-  user: 'engsoft2020',
-  password: 'a123456',
-  database: 'engsoft2020'
-});
-
 const app = express();
 
 app.set('view engine', 'ejs');//view engine é ejs
@@ -80,60 +73,58 @@ app.get('/login', function(req, resp){//get da view login (render normal)
 });
 
 app.post('/login', function(req, resp){//post da view login (consulta o banco)
+  const connection = mysql.createConnection({//conexao com o banco
+    host: 'engsoft2020.mysql.dbaas.com.br',
+    user: 'engsoft2020',
+    password: 'a123456',
+    database: 'engsoft2020'
+  });
   var login = req.body.login;//pega variáveis do formulario
   var senha = req.body.senha;
-
   var user = [];//variavel que vai receber os dados do banco
   var query = mysql.format("SELECT * FROM usuarios where login=?;", [login]);//formatacao da query
+
   connection.query(query, (err,rows) => {//funcao para aplicar a query
     if(err) throw err;
-    console.log(rows);//RETORNA UNDEFINED
     user = rows;//atribuicao dos dados recebidos do banco
-    if(rows && rows[0].senha == senha){
-      console.log("Usuario logado");
-      //faz algo se existir um login e senha compatível
+    connection.end();
+    if(user && user.length > 0 && user[0].senha == senha){//Usuario logado
+      if(user[0].tipo==0){
+        resp.render('cadastro');
+        app.post('/cadastro', function(req, resp){
+          const connection = mysql.createConnection({//conexao com o banco
+            host: 'engsoft2020.mysql.dbaas.com.br',
+            user: 'engsoft2020',
+            password: 'a123456',
+            database: 'engsoft2020'
+          });
+          console.log("post cadastro")
+          var nome = req.body.nome;
+          var sobrenome = req.body.sobrenome;
+          var login = req.body.login;
+          var senha = req.body.senha;
+          var tipo = parseInt(req.body.tipo);
+          var query = mysql.format("INSERT INTO usuarios (nome, sobrenome, login, senha, tipo) VALUES (?, ?, ?, ?, ?);", [nome, sobrenome, login, senha, tipo]);
+            connection.query(query, (err,rows) => {
+              if(err) throw err;
+              connection.end();
+          });
+        });
+    }
     }
     else{
       msg = 'Usuário incorreto ou inesistente';
       resp.render('login', {message: msg});
-      console.log("Incorreto");//faz algo se nao existir
     }
-  }).end();//fecha conexao com banco
-  
+  });
 });
 
+/*
 app.get('/cadastro', function(req, resp){
   resp.render('cadastro');
-});
+});*/
 
-app.post('/cadastro', function(req, resp){
-  var tipo = req.body.tipo;
-  var nome = req.body.nome;
-  var login = req.body.login;
-  var senha = req.body.senha;
-  if(tipo == 'radAluno'){
-    var query = mysql.format("INSERT into aluno (nome, login, senha) VALUES (?, ?, ?);", [nome, login, senha]);
-    connection.query(query, (err,rows) => {
-      if(err) throw err;
-    });
-  }
-  else if(tipo == 'radResp'){
-    var query = mysql.format("INSERT into responsavel (nome, login, senha) VALUES (?, ?, ?);", [nome, login, senha]);
-    connection.query(query, (err,rows) => {
-      if(err) throw err;
-    });
-  }
-  else if(tipo == 'radTutor'){
-    var query = mysql.format("INSERT into tutor (nome, login, senha) VALUES (?, ?, ?);", [nome, login, senha]);
-    connection.query(query, (err,rows) => {
-      if(err) throw err;
-    });
-  }
-  else{
-    console.log("Erro");
-  }
-  connection.end();
-})
+
 
 const server = http.createServer(app);//criacao do servidor
 server.listen(1000);//definicao da porta do servidor
