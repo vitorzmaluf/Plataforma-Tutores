@@ -89,11 +89,11 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
     user = rows;//atribuicao dos dados recebidos do banco
     connection.end();
     if(user && user.length > 0 && user[0].senha == senha){//Usuario logado
-      if(user[0].tipo==0){
+      if(user[0].tipo==0){//tipo administracao
         resp.redirect('/administracao');
 
         app.get('/administracao', function(req, resp){
-          resp.render('administracao/index-adm');
+          resp.render('administracao/index');
         });
 
         app.get('/administracao/cadastro', function(req, resp){
@@ -118,7 +118,27 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
               connection.end();
           });
         });
-    }
+      }else if(user[0].tipo==1){//tipo aluno
+        resp.redirect('/aluno');
+
+        app.get('/aluno', function(req, resp){
+          resp.render('aluno/index');
+        });
+      }else if(user[0].tipo==2){//tipo pai
+        resp.redirect('/pai');
+
+        app.get('/pai', function(req, resp){
+          resp.render('pai/index');
+        });
+      }else if(user[0].tipo==3){//tipo tutor
+        resp.redirect('/tutor');
+
+        app.get('/tutor', function(req, resp){
+          resp.render('tutor/index');
+        });
+      }else{//caso tenha sido salvo de forma errada, não será nenhum dos anteriores
+        console.log("Usuário salvo de forma errada");
+      }
     }
     else{
       msg = 'Usuário incorreto ou inesistente';
