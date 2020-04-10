@@ -90,15 +90,23 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
     connection.end();
     if(user && user.length > 0 && user[0].senha == senha){//Usuario logado
       if(user[0].tipo==0){
-        resp.render('cadastro');
-        app.post('/cadastro', function(req, resp){
+        resp.redirect('/administracao');
+
+        app.get('/administracao', function(req, resp){
+          resp.render('administracao/index-adm');
+        });
+
+        app.get('/administracao/cadastro', function(req, resp){
+          resp.render('administracao/cadastro');
+        });
+
+        app.post('/administracao/cadastro', function(req, resp){
           const connection = mysql.createConnection({//conexao com o banco
             host: 'engsoft2020.mysql.dbaas.com.br',
             user: 'engsoft2020',
             password: 'a123456',
             database: 'engsoft2020'
           });
-          console.log("post cadastro")
           var nome = req.body.nome;
           var sobrenome = req.body.sobrenome;
           var login = req.body.login;
@@ -118,12 +126,6 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
     }
   });
 });
-
-/*
-app.get('/cadastro', function(req, resp){
-  resp.render('cadastro');
-});*/
-
 
 
 const server = http.createServer(app);//criacao do servidor
