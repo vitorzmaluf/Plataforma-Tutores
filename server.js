@@ -56,6 +56,13 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
+const connection = mysql.createConnection({//conexao com o banco
+  host: 'engsoft2020.mysql.dbaas.com.br',
+  user: 'engsoft2020',
+  password: 'a123456',
+  database: 'engsoft2020'
+});
+
 const app = express();
 
 app.set('view engine', 'ejs');//view engine é ejs
@@ -76,12 +83,6 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
   var login = req.body.login;//pega variáveis do formulario
   var senha = req.body.senha;
 
-  const connection = mysql.createConnection({//conexao com o banco
-    host: 'engsoft2020.mysql.dbaas.com.br',
-    user: 'engsoft2020',
-    password: 'a123456',
-    database: 'engsoft2020'
-  });
   var user = [];//variavel que vai receber os dados do banco
   tipo = req.body.tipo;//radio do tipo de usuário
   if(tipo == "radAluno"){//aluno
@@ -135,12 +136,6 @@ app.get('/cadastro', function(req, resp){
 });
 
 app.post('/cadastro', function(req, resp){
-  const connection = mysql.createConnection({//conexao com o banco
-    host: 'engsoft2020.mysql.dbaas.com.br',
-    user: 'engsoft2020',
-    password: 'a123456',
-    database: 'engsoft2020'
-  });
   var tipo = req.body.tipo;
   var nome = req.body.nome;
   var login = req.body.login;
