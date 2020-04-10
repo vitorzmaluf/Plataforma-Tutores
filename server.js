@@ -89,7 +89,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
     user = rows;//atribuicao dos dados recebidos do banco
     connection.end();
     if(user && user.length > 0 && user[0].senha == senha){//Usuario logado
-      if(user[0].tipo==0){
+      if(user[0].tipo==0){//pagina de administradores
         resp.render('cadastro');
         app.post('/cadastro', function(req, resp){
           const connection = mysql.createConnection({//conexao com o banco
