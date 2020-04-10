@@ -122,19 +122,19 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
         resp.redirect('/aluno');
 
         app.get('/aluno', function(req, resp){
-          resp.render('aluno/index');
+          resp.render('alunos/index');
         });
       }else if(user[0].tipo==2){//tipo pai
         resp.redirect('/pai');
 
         app.get('/pai', function(req, resp){
-          resp.render('pai/index');
+          resp.render('pais/index');
         });
       }else if(user[0].tipo==3){//tipo tutor
         resp.redirect('/tutor');
 
         app.get('/tutor', function(req, resp){
-          resp.render('tutor/index');
+          resp.render('tutores/index');
         });
       }else{//caso tenha sido salvo de forma errada, não será nenhum dos anteriores
         console.log("Usuário salvo de forma errada");
