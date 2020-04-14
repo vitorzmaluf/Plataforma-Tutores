@@ -1,0 +1,173 @@
+@import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+
+:root {
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*Variaveis de Core*/
+    --c-blue: #005EA5;
+    --c-red: #DC1F27;
+    --c-green: #009846;
+    --c-yellow: #FFCA06;
+    --c-white: #EFEFEF;
+    --c-black: #000000;
+    --f-link:  #7F7F7F;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/*Body configs*/
+.login-screen {
+    margin: 0;
+    padding: 0;
+    background: url(/img/login-screen.jpg) no-repeat;
+    background-size: cover;
+}
+
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+body::-webkit-scrollbar-track {
+    background: var(--c-white);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #000000;
+}
+/*End body configs*/
+
+/*Blue header */
+.header {
+    background-color: var(--c-blue);
+    width: 100%;
+    height: 2rem;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/*NavBar Styles*/
+.navbar {
+    height: 5rem;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.nav-item {
+    height: 5rem;
+    width: 100%;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-item:hover{
+    background-color: var(--c-white);
+}
+
+.nav-active {
+    height: 5rem;
+    width: 100%;
+    background-color: var(--c-blue);
+}
+
+.nav-active .link-text {
+    color: var(--c-white);
+    margin-left: 2rem;
+}
+
+.link-text {
+    color:var(--f-link);
+    margin-left: 2rem;
+}
+/*END NavBar Styles*/
+
+.img {
+    height: 5rem;
+    width: 246px;
+    background-color: darkorchid;
+}
+
+/*Green btn on Header*/
+.login-pg {
+    margin-left: 80%;
+    background-color: var(--c-green);
+    height: 2rem;
+    width: 10rem;
+}
+
+.login-item {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    width: 100%;
+    height: 2rem;
+}
+
+.login-txt {
+    margin-left: 20%;
+    color: var(--c-white);
+}
+
+/*Login page*/
+.formulario {
+    border: 1px solid var(--c-black);
+    border-radius: 10%;
+    padding: 4%;
+    width: 280px;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+}
+
+.i-login {
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0;
+    margin: 20px 0;
+    border-bottom: 1px solid var(--c-black);
+}
+
+.i-login input {
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 14px;
+    width: 80%;
+    margin: 5px;
+}
+
+.r-btn {
+    width: 100%;
+    margin: 0;
+    margin-top: 10%;
+    padding: 0;
+}
+
+.btn {
+    width: 100%;
+    background-color: var(--c-white);
+    border: 2px solid #000000;
+    color: #000000;
+    padding: 5px;
+    margin-top: 10%;
+    font-size: 16px;
+    cursor: pointer;
+}
