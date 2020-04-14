@@ -5,6 +5,11 @@ const connection = mysql.createConnection({
   password: 'a123456',
   database: 'engsoft2020'
 });
+tipos:
+0 - amdin
+1 - aluno
+2 - tutor
+3 - pai
 
 connection.connect((err) => {
   if (err) throw err;
@@ -113,9 +118,37 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           var senha = req.body.senha;
           var tipo = parseInt(req.body.tipo);
           var query = mysql.format("INSERT INTO usuarios (nome, sobrenome, login, senha, tipo) VALUES (?, ?, ?, ?, ?);", [nome, sobrenome, login, senha, tipo]);
-            connection.query(query, (err,rows) => {
-              if(err) throw err;
-              connection.end();
+          connection.query(query, (err,rowsAlu) => {//VERIFICAR SE RETORNA O OBJETO INSERIDO
+            if(err) throw err;
+            connection.end();
+            if(tipo === 1){//NA0 ESQUECER DE INSERIR NA TABELA DE RELAÇÃO DE PAI E ALUNO
+              const connection = mysql.createConnection({//conexao com o banco
+                host: 'engsoft2020.mysql.dbaas.com.br',
+                user: 'engsoft2020',
+                password: 'a123456',
+                database: 'engsoft2020'
+              });
+              var pNome = req.body.pNome;
+              var pSobrenome = req.body.pSobrenome;
+              var pLogin = req.body.pLogin;
+              var pSenha = req.body.pSenha;
+              query = mysql.format("INSERT INTO usuarios (nome, sobrenome, login, senha, tipo) VALUES (?, ?, ?, ?, ?);", [pNome, pSobrenome, pLogin, pSenha, 3]);
+              connection.query(query, (err,rowsPai) => {
+                if(err) throw err;
+                connection.end();
+                const connection2 = mysql.createConnection({//conexao com o banco (nao sei pq derruba a conexao anterior)
+                  host: 'engsoft2020.mysql.dbaas.com.br',
+                  user: 'engsoft2020',
+                  password: 'a123456',
+                  database: 'engsoft2020'
+                });
+                query = mysql.format("INSERT INTO `relac-pai-alu` (idp, ida) VALUES (?, ?);", [rowsAlu.insertId, rowsPai.insertId]);
+                connection2.query(query, (err,rows) => {
+                  if(err) throw err;
+                  connection2.end();
+                });
+              });
+            }
           });
         });
       }else if(user[0].tipo==1){//tipo aluno
@@ -124,17 +157,17 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
         app.get('/aluno', function(req, resp){
           resp.render('alunos/index');
         });
-      }else if(user[0].tipo==2){//tipo pai
-        resp.redirect('/pai');
-
-        app.get('/pai', function(req, resp){
-          resp.render('pais/index');
-        });
-      }else if(user[0].tipo==3){//tipo tutor
+      }else if(user[0].tipo==2){//tipo tutor
         resp.redirect('/tutor');
 
         app.get('/tutor', function(req, resp){
           resp.render('tutores/index');
+        });
+      }else if(user[0].tipo==3){//tipo pai
+        resp.redirect('/pai');
+
+        app.get('/pai', function(req, resp){
+          resp.render('pais/index');
         });
       }else{//caso tenha sido salvo de forma errada, não será nenhum dos anteriores
         console.log("Usuário salvo de forma errada");
