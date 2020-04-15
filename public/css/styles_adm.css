@@ -207,3 +207,66 @@ body::-webkit-scrollbar-thumb {
     font-size: 16px;
     cursor: pointer;
 }
+
+/*main styles*/
+
+main {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--c-white);
+    width: 100%;
+}
+
+.user-inf {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 30%;
+}
+
+.user-photo {
+    display: flex;
+    background-color: #FFFFFF;
+    height: 160px;
+    width: 160px;
+    padding: 3%;
+    margin: 10% 25%;
+    border-style: solid;
+    border-radius: 50%;
+    border-color: var(--f-link);
+    border-width: 4px;
+}
+
+.user-name {
+    display: flex;
+    color: var(--f-link);
+    width: 100%;
+    margin: 0% 10% 0% 30%;
+}
+
+.tables {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 70%;
+    padding: 3%;
+}
+
+.tbl-tut {
+    width: 100%;
+    height: 30vh;
+    border: solid;
+    border-color: var(--f-link);
+    border-width: 1px;
+    background-color: #FFFFFF;
+}
+
+.tbl-alu {
+    width: 100%;
+    margin-top: 10%;
+    height: 30vh;
+    border: solid;
+    border-color: var(--f-link);
+    border-width: 1px;
+    background-color: #FFFFFF;
+}

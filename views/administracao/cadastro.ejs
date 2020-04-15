@@ -1,21 +1,71 @@
-<script>
-    function hideInput(){
-        pNome = document.getElementById("pNome");
-        pNome.style.visibility = 'hidden';
-        pLogin = document.getElementById("pLogin");
-        pLogin.style.visibility = 'hidden';
-        pSenha = document.getElementById("pSenha");
-        pSenha.style.visibility = 'hidden';
-    }
-    function showInput(){
-        pNome = document.getElementById("pNome");
-        pNome.style.visibility = 'visible';
-        pLogin = document.getElementById("pLogin");
-        pLogin.style.visibility = 'visible';
-        pSenha = document.getElementById("pSenha");
-        pSenha.style.visibility = 'visible';
-    }
+<!DOCTYPE html>
+<head>
+    <title>TUTORES Reforço Escolar</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+
+    <!-- Styles-->
+    <link rel="stylesheet" type="text/css" href="/css/styles_adm.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="logoff-pg">
+            <a href="/" class="logoff-item">
+                <span class="logoff-txt"><p>Clique aqui para fazer logoff</p></span>
+            </a>
+        </div>
+
+        <div class="login-pg">
+            <a href="/login" class="login-item">
+                <span class="login-txt"><p>Bem Vindo, <!--username--></p></span>
+            </a>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <li class="nav-item-img">
+                <a href="/">
+                    <div class="img"></div>
+                </a>
+            </li>
+            <div class="nav-pages">
+                <li class="nav-item">
+                    <a href="/administracao" class="nav-link">
+                        <span class="link-text"><p style="font-size: 10px; margin-top: 30px;">PAINEL</p><strong>INICIAL</strong></span>
+                    </a>
+                </li>
+                <li class="nav-active">
+                    <a href="/administracao/cadastro" class="nav-link">
+                        <span class="link-text"><p style="font-size: 10px; margin-top: 30px;">CADASTRAR</p><strong>USUÁRIO</strong></span>
+                    </a>
+                </li>
+            </div>
+        </ul>
+    </nav>
+
+    <script>
+        function hideInput(){
+            pNome = document.getElementById("pNome");
+            pNome.style.visibility = 'hidden';
+            pLogin = document.getElementById("pLogin");
+            pLogin.style.visibility = 'hidden';
+            pSenha = document.getElementById("pSenha");
+            pSenha.style.visibility = 'hidden';
+        }
+        function showInput(){
+            pNome = document.getElementById("pNome");
+            pNome.style.visibility = 'visible';
+            pLogin = document.getElementById("pLogin");
+            pLogin.style.visibility = 'visible';
+            pSenha = document.getElementById("pSenha");
+            pSenha.style.visibility = 'visible';
+        }
     </script>
+
     <form action="/administracao/cadastro" method="post">
         <label>
             Nome: <input type="text" name="nome">
@@ -47,3 +97,5 @@
         <label for="radio-aluno"><input type="radio" name="tipo" value="1" onclick="showInput()" checked="checked">Aluno</label>
         <label for="radio-pai"><input type="radio" name="tipo" value="2" onclick="hideInput()">Tutor</label>
     </form>
+
+</body>
