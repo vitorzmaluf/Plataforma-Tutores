@@ -1,4 +1,5 @@
 @import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
+@import url('https://fonts.googleapis.com/css?family=Lato:700|Manrope: 300, 400|Raleway:100,300,500,900|Roboto&display=swap');
 
 :root {
     font-size: 16px;
@@ -18,6 +19,130 @@ body {
     padding: 0;
 }
 
+.image{
+    position: relative;
+    width: 100%;
+}
+
+.image h2{
+    font-weight: lighter;
+    position: absolute;
+    font-style: italic;
+    bottom: 150px;
+    left: 200px;
+    width: 300px;
+    font-size: 35px;
+}
+
+.faixa{
+    background-color: #2980b9;
+    height: 150px;
+}
+
+.faixa h2{
+    position: absolute;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 56px;
+    left: 200px;
+    bottom: 100px;
+    
+}
+
+.faixa h1{
+    position: absolute;
+    font-family: 'Raleway', sans-serif;
+    /* font-weight: bolder; */
+    font-weight: 900;
+    font-size: 55px;
+    left: 200px;
+    bottom: 60px;   
+}
+
+.container{
+    margin: 40px;
+    padding-top: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* margin: 20px; */
+    /* border-radius: 10px; */
+    /* border: 1px  black solid; */
+}
+
+.container p{
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    text-align: justify;
+    font-size: 20px;
+    width: 550px;
+    margin-right: 40px;
+}
+
+.destaque{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.destaque p{
+    margin: 0;
+    position: relative;
+    bottom: 70px;
+    right: 100px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.destaque p strong{
+    background-color: #2980b9;
+}
+
+.transparente{
+    position: absolute;
+    background-color: #dcdde1;
+    /* background-color: black; */
+    opacity: 0.5;
+    bottom: 300px;
+    left: 1000px;
+    /* right: 500px; */
+    width: 400px;
+    height: 400px;
+}
+
+.transparente h3{
+    margin: 0;
+    margin-left: 10px;
+    /* position: absolute; */
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 56px;
+    top: 0px;
+}
+
+.transparente h1{
+    margin: 0;
+    margin-top: -40px;
+    margin-left: 135px;
+    /* position: absolute; */
+    font-family: 'Raleway', sans-serif;
+    /* font-weight: bolder; */
+    font-weight: 900;
+    font-size: 55px; 
+    /* bottom: 240px;   */
+}
+
+.transparente p{
+    margin: 20px;
+    font-family: 'Raleway', sans-serif;
+    color: black;
+    font-weight: 500;
+    text-align: justify;
+}
+
 /*Body configs*/
 .login-screen {
     margin: 0;
@@ -25,6 +150,7 @@ body {
     background: url(/img/login-screen.jpg) no-repeat;
     background-size: cover;
 }
+
 
 body::-webkit-scrollbar {
     width: 0.25rem;
