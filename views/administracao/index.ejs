@@ -51,11 +51,21 @@
     <main>
         <div class="user-inf">
             <div class="user-photo"></div>
-            <div class="user-name"><!-- nomeuser--> <br>ADMINISTRADOR</div>
+            <div class="user-name"><%= nome %><br>ADMINISTRADOR</div>
         </div>
         <div class="tables">
             <div class="tbl-tut">Tutores </div>
+                <ul>
+                    <% for (var tutor of tutores){ %>
+                        <li><%= tutor.nome %></li>
+                    <% } %>
+                </ul>
             <div class="tbl-alu">Alunos </div>
+                <ul>
+                    <% for (var aluno of alunos){ %>
+                        <li><%= aluno.nome %></li>
+                    <% } %>
+                </ul>
         </div>
     </main>
 </body>

@@ -88,17 +88,27 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
   var senha = req.body.senha;
   var user = [];//variavel que vai receber os dados do banco
   var query = mysql.format("SELECT * FROM usuarios where login=?;", [login]);//formatacao da query
-
   connection.query(query, (err,rows) => {//funcao para aplicar a query
     if(err) throw err;
     user = rows;//atribuicao dos dados recebidos do banco
-    connection.end();
     if(user && user.length > 0 && user[0].senha == senha){//Usuario logado
       if(user[0].tipo==0){//tipo administracao
         resp.redirect('/administracao');
-
         app.get('/administracao', function(req, resp){
-          resp.render('administracao/index');
+          var tutores, alunos;
+          var nome = user[0].nome;
+          var query = mysql.format("SELECT * FROM usuarios WHERE tipo = 2");
+          connection.query(query, (err, results)=>{
+            if(err) throw err;
+            tutores = results;
+            var query = mysql.format("SELECT * FROM usuarios WHERE tipo = 1");
+            connection.query(query, (err, results)=>{
+              if(err) throw err;
+              alunos = results;
+              resp.render('administracao/index', {tutores, alunos, nome});
+            });
+            connection.end();
+          });
         });
 
         app.get('/administracao/cadastro', function(req, resp){
@@ -116,12 +126,12 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           var sobrenome = req.body.sobrenome;
           var login = req.body.login;
           var senha = req.body.senha;
-          var tipo = parseInt(req.body.tipo);
+          var tipo = parseInt(req.body.tipo);//Daqui pra baixo verificar as conexões com o banco, provavelmente da pra simplificar
           var query = mysql.format("INSERT INTO usuarios (nome, sobrenome, login, senha, tipo) VALUES (?, ?, ?, ?, ?);", [nome, sobrenome, login, senha, tipo]);
-          connection.query(query, (err,rowsAlu) => {//VERIFICAR SE RETORNA O OBJETO INSERIDO
+          connection.query(query, (err,rowsAlu) => {
             if(err) throw err;
             connection.end();
-            if(tipo === 1){//NA0 ESQUECER DE INSERIR NA TABELA DE RELAÇÃO DE PAI E ALUNO
+            if(tipo === 1){
               const connection = mysql.createConnection({//conexao com o banco
                 host: 'engsoft2020.mysql.dbaas.com.br',
                 user: 'engsoft2020',
