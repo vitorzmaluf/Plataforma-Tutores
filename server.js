@@ -60,6 +60,7 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+var async = require('async');
 
 const app = express();
 
@@ -112,7 +113,19 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
         });
 
         app.get('/administracao/cadastro', function(req, resp){
-          resp.render('administracao/cadastro');
+          const connection = mysql.createConnection({//conexao com o banco
+            host: 'engsoft2020.mysql.dbaas.com.br',
+            user: 'engsoft2020',
+            password: 'a123456',
+            database: 'engsoft2020'
+          });
+          var query = mysql.format('SELECT id, nome FROM usuarios WHERE tipo = 2');
+          connection.query(query, (err, tutores)=>{
+            if(err) throw err;
+            resp.render('administracao/cadastro', {tutores});
+            connection.end();
+          });
+
         });
 
         app.post('/administracao/cadastro', function(req, resp){
@@ -142,6 +155,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
               var pSobrenome = req.body.pSobrenome;
               var pLogin = req.body.pLogin;
               var pSenha = req.body.pSenha;
+              var idt = req.body.tutores;
               query = mysql.format("INSERT INTO usuarios (nome, sobrenome, login, senha, tipo) VALUES (?, ?, ?, ?, ?);", [pNome, pSobrenome, pLogin, pSenha, 3]);
               connection.query(query, (err,rowsPai) => {
                 if(err) throw err;
@@ -155,17 +169,23 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
                 query = mysql.format("INSERT INTO `relac-pai-alu` (idp, ida) VALUES (?, ?);", [rowsAlu.insertId, rowsPai.insertId]);
                 connection2.query(query, (err,rows) => {
                   if(err) throw err;
-                  connection2.end();
+                  query = mysql.format("INSERT INTO `relac-tutor-alu` (idt, ida) VALUES (?, ?);", [idt, rowsAlu.insertId]);
+                  connection2.query(query, (err, rows)=>{
+                    if(err) throw err;
+                    connection2.end();
+                  });
                 });
               });
             }
           });
+          resp.redirect('/administracao/cadastro');
         });
       }else if(user[0].tipo==1){//tipo aluno
         resp.redirect('/aluno');
 
         app.get('/aluno', function(req, resp){
-          resp.render('alunos/index');
+          var nome = user[0].nome;
+          resp.render('alunos/index', {nome});
         });
       }else if(user[0].tipo==2){//tipo tutor
         resp.redirect('/tutor');
@@ -173,6 +193,41 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
         app.get('/tutor', function(req, resp){
           resp.render('tutores/index');
         });
+
+        app.get('/tutor/add-atv', function(req, resp){
+          const connection = mysql.createConnection({//conexao com o banco
+            host: 'engsoft2020.mysql.dbaas.com.br',
+            user: 'engsoft2020',
+            password: 'a123456',
+            database: 'engsoft2020'
+          });
+          var query = mysql.format('SELECT id, nome FROM usuarios a, `relac-tutor-alu` b WHERE a.id = b.ida;');
+          connection.query(query, (err, alunos)=>{
+            if (err) throw err;
+            resp.render('tutores/add-atv', {alunos});
+            connection.end();
+          });
+        });
+
+        app.post('/tutor/add-atv', function(req, resp){
+          const connection = mysql.createConnection({//conexao com o banco
+            host: 'engsoft2020.mysql.dbaas.com.br',
+            user: 'engsoft2020',
+            password: 'a123456',
+            database: 'engsoft2020'
+          });
+          titulo = req.body.titulo; //para o banco é o assunto
+          conteudo = req.body.conteudo; //para o banco é o corpo
+          ida = req.body.alunosRelacionados;
+          console.log(ida);
+          var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida) VALUES (?, ?, ?, ?, ?)', [titulo, conteudo, user[0].id, ida, 0]);
+          connection.query(query, (err, results)=>{
+            if (err) throw err;
+            resp.redirect('/tutor/add-atv');
+            connection.end();
+          });
+        });
+
       }else if(user[0].tipo==3){//tipo pai
         resp.redirect('/pai');
 
