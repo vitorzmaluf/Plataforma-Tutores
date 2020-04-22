@@ -159,14 +159,14 @@ body::-webkit-scrollbar-thumb {
     color: var(--c-white);
 }
 
-/*Login page*/
+/*Cad page*/
 .formulario {
     border: 1px solid var(--c-black);
     border-radius: 10%;
-    padding: 4%;
-    width: 280px;
+    padding: 2%;
+    width: 500px;
     position: absolute;
-    top: 55%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #FFFFFF;
@@ -181,13 +181,21 @@ body::-webkit-scrollbar-thumb {
     border-bottom: 1px solid var(--c-black);
 }
 
+.i-tutor {
+    width: 100%;
+    overflow: hidden;
+    font-size: 20px;
+    padding: 8px 0;
+    margin: 20px 0;
+}
+
 .i-login input {
     border: none;
     outline: none;
     background: none;
     font-size: 14px;
     width: 80%;
-    margin: 5px;
+    margin: 4px;
 }
 
 .r-btn {
@@ -203,7 +211,7 @@ body::-webkit-scrollbar-thumb {
     border: 2px solid #000000;
     color: #000000;
     padding: 5px;
-    margin-top: 10%;
+    margin-top: 5%;
     font-size: 16px;
     cursor: pointer;
 }
@@ -287,9 +295,13 @@ main {
 }
 
 .tbl-item {
+    border: solid;
+    padding: 1%;
+    border-width: 0.5px;
+    border-radius: 4px;
     margin-top: 1.5%;
     margin-left: 2.5%;
-    width: 95%;
-    background-color: aqua;
+    width: 90%;
+    background-color: var(--c-white);
     height: 7vh;
 }
