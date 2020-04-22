@@ -55,6 +55,8 @@
             pLogin.style.visibility = 'hidden';
             pSenha = document.getElementById("pSenha");
             pSenha.style.visibility = 'hidden';
+            tutores = document.getElementById("tutores");
+            tutores.style.visibility = 'hidden';
         }
         function showInput(){
             pNome = document.getElementById("pNome");
@@ -63,6 +65,8 @@
             pLogin.style.visibility = 'visible';
             pSenha = document.getElementById("pSenha");
             pSenha.style.visibility = 'visible';
+            tutores = document.getElementById("tutores");
+            tutores.style.visibility = 'visible';
         }
     </script>
 
@@ -88,6 +92,12 @@
         <label id="pSenha">
             Senha do Pai/Mãe do aluno: <input type="password" name="pSenha">
         </label>
+        Selecione o tutor responsável
+        <select name="tutores" id="tutores">
+            <% for (var tutor of tutores){ %>
+                <option value='<%= tutor.id %>'><%= tutor.nome %></option>
+            <% } %>
+        </select>
     
         <label>
             <input type="submit">

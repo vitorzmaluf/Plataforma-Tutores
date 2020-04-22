@@ -1,0 +1,15 @@
+<form action="/tutor/add-atv" method="post">
+    Adicionar atividade
+    <label>
+        Titulo: <input type="text" name="titulo">
+    </label>
+    <label>
+        Conteúdo: <input type="text" name="conteudo">
+    </label>
+    <select name="alunosRelacionados">
+        <% for (var aluno of alunos){ %>
+            <option value='<%= aluno.id %>'><%= aluno.nome %></option>
+        <% } %>
+    </select>
+    <input type="submit">
+</form>

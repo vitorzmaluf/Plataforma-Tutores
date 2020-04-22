@@ -51,24 +51,20 @@
     <main>
         <div class="user-inf">
             <div class="user-photo"></div>
-            <div class="user-name"><!-- nomeuser--> <br>ADMINISTRADOR</div>
+            <div class="user-name"><%= nome %><br>ADMINISTRADOR</div>
         </div>
         <div class="tables">
             <div class="tbl">
                 <div class="tbl-title">TUTORES </div>
-                <div class="tbl-item"></div>
-                <div class="tbl-item"></div>
-                <div class="tbl-item"></div>
-                <div class="tbl-item"></div>
-                <div class="tbl-item"></div>
-                <div class="tbl-item"></div>
+                <% for (var tutor of tutores){ %>
+                    <div class="tbl-item"><%= tutor.nome %></div>
+                <% } %>
             </div>
             <div class="tbl">
                 <div class="tbl-title">ALUNOS </div>
-                <div class="tbl-item"></div>
-                <div class="tbl-item"></div>
-                <div class="tbl-item"></div>
-                <div class="tbl-item"></div>
+                <% for (var aluno of alunos){ %>
+                    <div class="tbl-item"><%= aluno.nome %></div>
+                <% } %>
             </div>
         </div>
     </main>
