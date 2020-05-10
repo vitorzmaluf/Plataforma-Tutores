@@ -19,66 +19,85 @@ body {
     padding: 0;
 }
 
+
 .image{
-    position: relative;
-    width: 100%;
+    /* position: relative; */
+    width: 100vw;
+    height: auto;
+
 }
 
-.image h2{
+.containerzero{
+    position: relative;
+    /* width: 50vw; */
+    height: auto;
+    /* border: 1px red solid; */
+}
+
+.containerzero h2{
     font-weight: lighter;
     position: absolute;
     font-style: italic;
-    bottom: 150px;
-    left: 200px;
-    width: 300px;
-    font-size: 35px;
+    bottom: 35%;
+    left: 8%;
+    max-width: 300px;
+    font-size: 28px;
 }
 
 .faixa{
     background-color: #2980b9;
-    height: 150px;
+    height: 110px;
+    margin: 0;
 }
 
 .faixa h2{
+    margin: 0;
     position: absolute;
     font-family: 'Raleway', sans-serif;
     font-weight: 300;
-    font-size: 56px;
-    left: 200px;
-    bottom: 100px;
-    
+    font-size: 3.5em;
+    left: 11%;
+    /* margin-bottom: 10px; */
+    /* bottom: 0%; */
 }
 
 .faixa h1{
-    position: absolute;
+    margin: 0;
+    position: relative;
     font-family: 'Raleway', sans-serif;
     /* font-weight: bolder; */
     font-weight: 900;
-    font-size: 55px;
-    left: 200px;
-    bottom: 60px;   
+    font-size: 3.5em;
+    left: 11%;
+    top: 60px;   
 }
 
 .container{
+    clear: both;
     margin: 40px;
-    padding-top: 100px;
+    padding-top: 70px;
     padding-left: 100px;
     padding-right: 100px;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /* margin: 20px; */
-    /* border-radius: 10px; */
-    /* border: 1px  black solid; */
+
 }
 
-.container p{
+.texto{
+    margin: 2%;
+}
+
+.texto p{
     font-family: 'Raleway', sans-serif;
     font-weight: 300;
     text-align: justify;
     font-size: 20px;
     width: 550px;
-    margin-right: 40px;
+    margin:10px;
+    line-height: 2ch;
+
+    /* margin-right: 40px; */
 }
 
 .destaque{
@@ -90,7 +109,7 @@ body {
 .destaque p{
     margin: 0;
     position: relative;
-    bottom: 70px;
+    bottom: 50px;
     right: 100px;
     font-family: 'Raleway', sans-serif;
     font-weight: 500;
@@ -101,13 +120,27 @@ body {
     background-color: #2980b9;
 }
 
+.destaque h1{
+    margin-top: 80px;
+    align-items: center;
+    font-family: 'Raleway', sans-serif;
+    /* font-weight: bolder; */
+    font-weight: 900;
+    font-size: 55px; 
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+
 .transparente{
     position: absolute;
     background-color: #dcdde1;
     /* background-color: black; */
-    opacity: 0.5;
-    bottom: 300px;
-    left: 1000px;
+    opacity: 0.6;
+    bottom: 40%;
+    left: 64%;
     /* right: 500px; */
     width: 400px;
     height: 400px;
@@ -142,6 +175,7 @@ body {
     font-weight: 500;
     text-align: justify;
 }
+
 
 /*Body configs*/
 .login-screen {
