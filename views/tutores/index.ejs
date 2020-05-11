@@ -1,1 +1,13 @@
 <a href="/tutor/add-atv">Adicionar atividade</a>
+
+Mensagens não lidas:
+    <% for (var mensagem of mensagens){ %>
+        <% if (mensagem.lida == 0){ %>
+            <a href="/tutor/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+        <% } %>
+    <% } %>
+
+Todas mensagens:
+    <% for (var mensagem of mensagens){ %>
+        <a href="/tutor/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+    <% } %>
