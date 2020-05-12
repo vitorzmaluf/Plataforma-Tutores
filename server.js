@@ -135,13 +135,12 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             var titulo = req.body.titulo;
             var mensagem = req.body.mensagem;
             var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida) VALUES (?, ?, ?, (SELECT idt FROM `relac-tutor-alu` WHERE ida = ?), ?)', [titulo, mensagem, user[0].id, user[0].id, 0]);
-            console.log(query);
             pool.query(query, (err, results)=>{
               if (err) throw err;
               resp.redirect('/aluno');
             });
           });
-          
+
           app.get('/aluno/mensagem/:id', function(req, resp) {
             var query = mysql.format('SELECT * FROM mensagem WHERE id = ?', req.params.id);
             pool.query(query, (err, mensagemBanco)=>{
