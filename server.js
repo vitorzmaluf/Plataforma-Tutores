@@ -170,7 +170,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
   
           app.get('/tutor', function(req, resp){
             var nome = user[0].nome;
-            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id]);//and lida = 0 (futuramente)
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id]);
             pool.query(query, (err, mensagens)=>{
               if (err) throw err;
               resp.render('tutores/index', {nome, mensagens});
@@ -227,15 +227,11 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
   
           app.get('/pai', function(req, resp){
             var nome = user[0].nome;
-            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = (SELECT ida FROM `relac-pai-alu` WHERE idp = ?)', [user[0].id]);//and lida = 0 (futuramente)
-            console.log(query);
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = (SELECT ida FROM `relac-pai-alu` WHERE idp = ?)', [user[0].id]);
             pool.query(query, (err, mensagensPara)=>{
               if (err) throw err;
-              var query = mysql.format('SELECT * FROM mensagem WHERE remetente = (SELECT ida FROM `relac-pai-alu` WHERE idp = ?)', [user[0].id]);//and lida = 0 (futuramente)
-              console.log(query);
-              pool.query(query, (err, mensagensDe)=>{
-                console.log(mensagensPara);
-                console.log(mensagensDe);
+              var query = mysql.format('SELECT * FROM mensagem WHERE remetente = (SELECT ida FROM `relac-pai-alu` WHERE idp = ?)', [user[0].id]);
+                pool.query(query, (err, mensagensDe)=>{
                 resp.render('pais/index', {nome, mensagensPara, mensagensDe});
               });
             });
