@@ -122,12 +122,26 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           resp.redirect('/aluno');
           app.get('/aluno', function(req, resp){
             var nome = user[0].nome;
-            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id]);//and lida = 0 (futuramente)
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id]);
             pool.query(query, (err, mensagens)=>{
               if (err) throw err;
               resp.render('alunos/index', {nome, mensagens});
             });
           });
+          app.get('/aluno/add-duvida', function(req, resp){
+            resp.render('alunos/add-duvida');
+          });
+          app.post('/aluno/add-duvida', function(req, resp){//adiciona dúvida somente para o tutor responsável pelo aluno
+            var titulo = req.body.titulo;
+            var mensagem = req.body.mensagem;
+            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida) VALUES (?, ?, ?, (SELECT idt FROM `relac-tutor-alu` WHERE ida = ?), ?)', [titulo, mensagem, user[0].id, user[0].id, 0]);
+            console.log(query);
+            pool.query(query, (err, results)=>{
+              if (err) throw err;
+              resp.redirect('/aluno');
+            });
+          });
+          
           app.get('/aluno/mensagem/:id', function(req, resp) {
             var query = mysql.format('SELECT * FROM mensagem WHERE id = ?', req.params.id);
             pool.query(query, (err, mensagemBanco)=>{
