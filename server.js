@@ -101,7 +101,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
                   if(err){
                     console.log(err);
                   };
-                  query = mysql.format("INSERT INTO `relac-pai-alu` (idp, ida) VALUES (?, ?);", [rowsAlu.insertId, rowsPai.insertId]);
+                  query = mysql.format("INSERT INTO `relac-pai-alu` (idp, ida) VALUES (?, ?);", [rowsPai.insertId, rowsAlu.insertId]);
                   pool.query(query, (err,rows) => {
                     if(err){
                       console.log(err);
@@ -226,7 +226,19 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           resp.redirect('/pai');
   
           app.get('/pai', function(req, resp){
-            resp.render('pais/index');
+            var nome = user[0].nome;
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = (SELECT ida FROM `relac-pai-alu` WHERE idp = ?)', [user[0].id]);//and lida = 0 (futuramente)
+            console.log(query);
+            pool.query(query, (err, mensagensPara)=>{
+              if (err) throw err;
+              var query = mysql.format('SELECT * FROM mensagem WHERE remetente = (SELECT ida FROM `relac-pai-alu` WHERE idp = ?)', [user[0].id]);//and lida = 0 (futuramente)
+              console.log(query);
+              pool.query(query, (err, mensagensDe)=>{
+                console.log(mensagensPara);
+                console.log(mensagensDe);
+                resp.render('pais/index', {nome, mensagensPara, mensagensDe});
+              });
+            });
           });
         }else{//caso tenha sido salvo de forma errada, não será nenhum dos anteriores
           console.log("Usuário salvo de forma errada");
