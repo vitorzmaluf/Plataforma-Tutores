@@ -7,6 +7,7 @@
 
     <!-- Styles-->
     <link rel="stylesheet" type="text/css" href="/css/header.css">
+    <link rel="stylesheet" type="text/css" href="/css/tutor_main.css">
 </head>
 
 <body>
@@ -27,13 +28,13 @@
 
     <nav class="navbar">
         <ul class="navbar-nav">
-            <li class="nav-item">
+            <li class="nav-item-img">
                 <a href="/">
                     <div class="img"></div>
                 </a>
             </li>
             <li class="nav-active">
-                <a href="/" class="nav-link">
+                <a href="/tutor" class="nav-link">
                     <span class="link-text"><p style="font-size: 10px; margin-top: 30px;">Painel</p><strong>Inicial</strong></span>
                 </a>
             </li>
@@ -55,11 +56,22 @@
         </ul>
     </nav>
     <main>
+        <div class="user-inf">
+            <div class="user-photo"></div>
+            <div class="user-name"><%= nome %><br>TUTOR</div>
+        </div>
+        <div class="tables">
+            <div class="tbl">
+                <div class="tbl-title">ALUNO </div>
+            </div>
+        </div>
+
     </main>
 </body>
 
-<a href="/tutor/add-atv">Adicionar atividade</a>
 
+<!--  ARRUMAR ISSO AQUI
+<a href="/tutor/add-atv">Adicionar atividade</a>
 Mensagens não lidas:
     <% for (var mensagem of mensagens){ %>
         <% if (mensagem.lida == 0){ %>
@@ -71,3 +83,7 @@ Todas mensagens:
     <% for (var mensagem of mensagens){ %>
         <a href="/tutor/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
     <% } %>
+-->
+
+
+

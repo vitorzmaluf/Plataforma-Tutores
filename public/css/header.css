@@ -79,12 +79,11 @@ body::-webkit-scrollbar-thumb {
 .nav-item {
     height: 5rem;
     width: 10rem;
-    margin-right: 10%;
 }
 
 .nav-item-img{
     height: 5rem;
-    width: 100%;
+    margin-right: 10%;
 }
 
 .nav-link {
