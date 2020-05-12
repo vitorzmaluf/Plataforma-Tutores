@@ -165,6 +165,12 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
               });
             });
           });
+          app.get('/aluno/atividades', function(req, resp) {
+            resp.render('alunos/atividades');
+          });
+          app.get('/aluno/duvidas', function(req, resp) {
+            resp.render('alunos/duvidas');
+          });
         }else if(user[0].tipo==2){//tipo tutor
           resp.redirect('/tutor');
   
