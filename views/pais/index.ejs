@@ -1,0 +1,10 @@
+  
+Todas mensagens/atividade enviadas para seu filho:
+    <% for (var mensagem of mensagensPara){ %>
+        <a href="/tutor/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+    <% } %>
+
+Todas mensagens/atividades enviadas pelo seu filho:
+    <% for (var mensagem of mensagensDe){ %>
+        <a href="/tutor/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+    <% } %>
