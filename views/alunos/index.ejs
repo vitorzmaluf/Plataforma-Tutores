@@ -1,15 +1,3 @@
 <p><a href="/aluno/add-duvida">Adicionar dúvida</a></p>
 <p><a href="/aluno/duvidas">duvidas</a></p>
 <p><a href="/aluno/atividades">atividades</a></p>
-
-Mensagens/atividades não lidas:
-    <% for (var mensagem of mensagens){ %>
-        <% if (mensagem.lida == 0){ %>
-            <a href="/aluno/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
-        <% } %>
-    <% } %>
-
-Todas mensagens/atividades:
-    <% for (var mensagem of mensagens){ %>
-        <a href="/aluno/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
-    <% } %>

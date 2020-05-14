@@ -1,0 +1,10 @@
+<!---Lista somente mensagens-->
+Dúvidas enviadas por você:
+    <% for (var mensagem of mensagensDe){ %>
+        <a href="/aluno/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+    <% } %>
+
+Respostas obtidas:
+    <% for (var mensagem of mensagensPara){ %>
+        <a href="/aluno/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+    <% } %>
