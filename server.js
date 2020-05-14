@@ -1,9 +1,16 @@
 /*
+Tabela Usuarios:
 tipos:
 0 - amdin
 1 - aluno
 2 - tutor
 3 - pai
+
+
+Tabela Mensagem:
+tipos:
+0 - mensagem
+1 - atividade
 */
 
 const http = require('http');
@@ -134,7 +141,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           app.post('/aluno/add-duvida', function(req, resp){//adiciona dúvida somente para o tutor responsável pelo aluno
             var titulo = req.body.titulo;
             var mensagem = req.body.mensagem;
-            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida) VALUES (?, ?, ?, (SELECT idt FROM `relac-tutor-alu` WHERE ida = ?), ?)', [titulo, mensagem, user[0].id, user[0].id, 0]);
+            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida, tipo) VALUES (?, ?, ?, (SELECT idt FROM `relac-tutor-alu` WHERE ida = ?), ?, ?)', [titulo, mensagem, user[0].id, user[0].id, 0, 0]);
             pool.query(query, (err, results)=>{
               if (err) throw err;
               resp.redirect('/aluno');
@@ -166,10 +173,22 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             });
           });
           app.get('/aluno/atividades', function(req, resp) {
-            resp.render('alunos/atividades');
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id], 1);
+            pool.query(query, (err, mensagens)=>{
+              if (err) throw err;
+              resp.render('alunos/atividades', {mensagens});
+            });
           });
           app.get('/aluno/duvidas', function(req, resp) {
-            resp.render('alunos/duvidas');
+            var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ? AND tipo = ?', [user[0].id], 0);
+            pool.query(query, (err, mensagensDe)=>{
+              if (err) throw err;
+              var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id], 0);
+              pool.query(query, (err, mensagensPara)=>{
+                if (err) throw err;
+                resp.render('alunos/duvidas', {mensagensDe, mensagensPara});
+              });
+            });
           });
         }else if(user[0].tipo==2){//tipo tutor
           resp.redirect('/tutor');
