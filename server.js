@@ -129,11 +129,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           resp.redirect('/aluno');
           app.get('/aluno', function(req, resp){
             var nome = user[0].nome;
-            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id]);
-            pool.query(query, (err, mensagens)=>{
-              if (err) throw err;
-              resp.render('alunos/index', {nome, mensagens});
-            });
+            resp.render('alunos/index', {nome});
           });
           app.get('/aluno/add-duvida', function(req, resp){
             resp.render('alunos/add-duvida');
@@ -148,7 +144,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             });
           });
 
-          app.get('/aluno/mensagem/:id', function(req, resp) {
+          app.get('/aluno/mensagem/:id', function(req, resp) {//vizualizacao de uma mensagem em detalhes
             var query = mysql.format('SELECT * FROM mensagem WHERE id = ?', req.params.id);
             pool.query(query, (err, mensagemBanco)=>{
               if (err) throw err;
@@ -172,24 +168,28 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
               });
             });
           });
-          app.get('/aluno/atividades', function(req, resp) {
+
+          app.get('/aluno/atividades', function(req, resp) {//lista todas as atividades e avaliações enviadas para o aluno
             var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id], 1);
             pool.query(query, (err, mensagens)=>{
               if (err) throw err;
               resp.render('alunos/atividades', {mensagens});
             });
           });
-          app.get('/aluno/duvidas', function(req, resp) {
+
+          app.get('/aluno/duvidas', function(req, resp) {//lista todas as duvidas enviadas e recebidas (chat)
             var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ? AND tipo = ?', [user[0].id], 0);
             pool.query(query, (err, mensagensDe)=>{
               if (err) throw err;
               var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id], 0);
               pool.query(query, (err, mensagensPara)=>{
                 if (err) throw err;
-                resp.render('alunos/duvidas', {mensagensDe, mensagensPara});
+                resp.render('alunos/chat', {mensagensDe, mensagensPara});
               });
             });
           });
+
+
         }else if(user[0].tipo==2){//tipo tutor
           resp.redirect('/tutor');
   
@@ -202,7 +202,50 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             });
           });
 
-          app.get('/tutor/mensagem/:id', function(req, resp) {
+          app.get('/tutor/add-atv', function(req, resp){//adicionar uma atividade
+            var query = mysql.format('SELECT id, nome FROM usuarios a, `relac-tutor-alu` b WHERE a.id = b.ida');
+            pool.query(query, (err, alunos)=>{
+              if (err) throw err;
+              resp.render('tutores/add-atv', {alunos});
+            });
+          });
+  
+          app.post('/tutor/add-atv', function(req, resp){
+            titulo = req.body.titulo; //para o banco é o assunto
+            conteudo = req.body.conteudo; //para o banco é o corpo
+            ida = req.body.alunosRelacionados;
+            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida) VALUES (?, ?, ?, ?, ?)', [titulo, conteudo, user[0].id, ida, 0]);
+            pool.query(query, (err, results)=>{
+              if (err) throw err;
+              resp.redirect('/tutor/add-atv');
+            });
+          });
+
+          app.get('/tutor/atividades', function(req, resp){//listar todas atividades
+            var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ? and tipo = ?', [user[0].id, 0]);
+            pool.query(query, (err, results)=>{
+              if (err) throw err;
+              resp.render('/tutores/atv-online', results);
+            });
+          });
+
+          app.get('/tutor/chat', function(req, resp){//listar todas as mensagens
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id, 0]);
+            pool.query(query, (err, results)=>{
+              if (err) throw err;
+              resp.render('/tutores/chat', results);
+            });
+          });
+
+          // app.get('tutor/avaliacoes', function(req, resp){
+          //   var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ?', [user[0].id, 0]);
+          //   pool.query(query, (err, results)=>{
+          //     if (err) throw err;
+          //     resp.render('/tutores/chat', results);
+          //   });
+          // });
+
+          app.get('/tutor/mensagem/:id', function(req, resp) {//página de uma mensagem específica
             var query = mysql.format('SELECT * FROM mensagem WHERE id = ?', req.params.id);
             pool.query(query, (err, mensagemBanco)=>{
               if (err) throw err;
@@ -228,24 +271,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             });
           });
           
-          app.get('/tutor/add-atv', function(req, resp){
-            var query = mysql.format('SELECT id, nome FROM usuarios a, `relac-tutor-alu` b WHERE a.id = b.ida');
-            pool.query(query, (err, alunos)=>{
-              if (err) throw err;
-              resp.render('tutores/add-atv', {alunos});
-            });
-          });
-  
-          app.post('/tutor/add-atv', function(req, resp){
-            titulo = req.body.titulo; //para o banco é o assunto
-            conteudo = req.body.conteudo; //para o banco é o corpo
-            ida = req.body.alunosRelacionados;
-            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida) VALUES (?, ?, ?, ?, ?)', [titulo, conteudo, user[0].id, ida, 0]);
-            pool.query(query, (err, results)=>{
-              if (err) throw err;
-              resp.redirect('/tutor/add-atv');
-            });
-          });
+          
   
         }else if(user[0].tipo==3){//tipo pai
           resp.redirect('/pai');
