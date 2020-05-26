@@ -233,7 +233,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id, 0]);
             pool.query(query, (err, results)=>{
               if (err) throw err;
-              resp.render('tutores/duvudas', results);
+              resp.render('tutores/duvidas', results);
             });
           });
 
