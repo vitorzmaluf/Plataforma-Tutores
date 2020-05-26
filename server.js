@@ -225,7 +225,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ? and tipo = ?', [user[0].id, 0]);
             pool.query(query, (err, results)=>{
               if (err) throw err;
-              resp.render('/tutores/atv-online', results);
+              resp.render('tutores/atv-online', results);
             });
           });
 
@@ -233,7 +233,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id, 0]);
             pool.query(query, (err, results)=>{
               if (err) throw err;
-              resp.render('/tutores/chat', results);
+              resp.render('tutores/chat', results);
             });
           });
 
