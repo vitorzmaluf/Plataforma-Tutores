@@ -1,0 +1,90 @@
+/*main styles*/
+
+main {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--c-white);
+    height: 83vh;
+    width: 100%;
+}
+
+.user-inf {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 30%;
+}
+
+.user-photo {
+    display: flex;
+    background-color: #FFFFFF;
+    height: 160px;
+    width: 160px;
+    padding: 3%;
+    margin: 10% 25%;
+    border-style: solid;
+    border-radius: 50%;
+    border-color: var(--f-link);
+    border-width: 4px;
+}
+
+.user-name {
+    display: flex;
+    color: var(--f-link);
+    width: 100%;
+    margin: 0% 10% 0% 33%;
+}
+
+.tables {
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    width: 70%;
+    padding: 3%;
+}
+
+.tbl {
+    width: 100%;
+    height: 60vh;
+    padding: 1%;
+    /* margin-bottom: 3%; */
+    border: solid;
+    border-color: var(--f-link);
+    border-width: 1px;
+    background-color: #FFFFFF;
+    overflow-y: auto;
+}
+
+.tbl::-webkit-scrollbar {
+    width: 0.25rem;
+}
+.tbl::-webkit-scrollbar-track {
+    background: var(--c-white);
+}
+
+.tbl::-webkit-scrollbar-thumb {
+    background: var(--f-link);
+}
+
+
+.tbl-title {
+    width: 95%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+    border-bottom: solid;
+    border-width: 1px;
+    color: var(--f-link);
+    border-color: var(--f-link);
+}
+
+.tbl-item {
+    border: solid;
+    padding: 1%;
+    border-width: 0.5px;
+    border-radius: 4px;
+    margin-top: 1.5%;
+    margin-left: 2.5%;
+    width: 90%;
+    background-color: var(--c-white);
+    height: 7vh;
+}
