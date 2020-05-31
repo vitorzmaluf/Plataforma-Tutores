@@ -1,3 +1,16 @@
+:root {
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*Variaveis de Core*/
+    --c-blue: #005EA5;
+    --c-red: #DC1F27;
+    --c-green: #009846;
+    --c-yellow: #FFCA06;
+    --c-white: #EFEFEF;
+    --c-black: #000000;
+    --f-link:  #7F7F7F;
+}
+
 /*main styles*/
 
 main {
@@ -157,4 +170,38 @@ main {
     border: none;
     outline: none;
     cursor: pointer;
+}
+
+
+.tbl_atv::-webkit-scrollbar {
+    width: 0.25rem;
+}
+.tbl_atv::-webkit-scrollbar-track {
+    background: var(--c-white);
+}
+
+.tbl_atv::-webkit-scrollbar-thumb {
+    background: var(--f-link);
+}
+
+.tbl_title{
+    width: 95%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+    border-bottom: solid;
+    border-width: 1px;
+    color: var(--f-link);
+    border-color: var(--f-link);
+}
+
+.tbl_item{
+    border: solid;
+    padding: 1%;
+    border-width: 0.5px;
+    border-radius: 4px;
+    margin-top: 1.5%;
+    margin-left: 2.5%;
+    width: 90%;
+    background-color: var(--c-white);
+    height: 7vh;
 }
