@@ -237,6 +237,14 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             });
           });
 
+          app.get('/tutor/feedback', function(req, resp){//listar todas as duvidas
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id, 0]);
+            pool.query(query, (err, results)=>{
+              if (err) throw err;
+              resp.render('tutores/ava', results);
+            });
+          });
+
           // app.get('tutor/avaliacoes', function(req, resp){
           //   var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ?', [user[0].id, 0]);
           //   pool.query(query, (err, results)=>{
