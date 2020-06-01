@@ -254,6 +254,8 @@ main {
     width: 100%;
     border: solid 1px #000;
     background-color: var(--c-yellow);
+    padding-top: 1vh;
+    text-align: center;
 }
 
 .qst-view{
