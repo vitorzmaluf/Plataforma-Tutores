@@ -131,9 +131,23 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             var nome = user[0].nome;
             resp.render('alunos/index', {nome});
           });
+          //Botão para adicionar duvida
           app.get('/aluno/add-duvida', function(req, resp){
             resp.render('alunos/add-duvida');
           });
+          //Atividade
+          app.get('/aluno/atividades', function(req, resp){
+            resp.render('alunos/atividades');
+          });
+          //Feedback
+          app.get('/aluno/feedback', function(req, resp){
+            resp.render('alunos/feedback');
+          });
+          //Chat
+          app.get('/aluno/chat', function(req, resp){
+            resp.render('alunos/chat');
+          });
+
           app.post('/aluno/add-duvida', function(req, resp){//adiciona dúvida somente para o tutor responsável pelo aluno
             var titulo = req.body.titulo;
             var mensagem = req.body.mensagem;

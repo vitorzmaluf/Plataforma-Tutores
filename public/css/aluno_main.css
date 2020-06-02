@@ -36,7 +36,7 @@ main {
 }
 
 .tables {
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     height: 70vh;
     width: 70%;
@@ -45,9 +45,9 @@ main {
 
 .tbl {
     width: 100%;
-    height: 60vh;
+    height: 31vh;
     padding: 1%;
-    /* margin-bottom: 3%; */
+    margin-bottom: 3%;
     border: solid;
     border-color: var(--f-link);
     border-width: 1px;
@@ -87,4 +87,30 @@ main {
     width: 90%;
     background-color: var(--c-white);
     height: 7vh;
+}
+
+.tbl_title{
+    width: 95%;
+    margin-top: 1%;
+    margin-left: 2.5%;
+    border-bottom: solid;
+    border-width: 1px;
+    color: var(--f-link);
+    border-color: var(--f-link);
+}
+
+.tbl_item{
+    border: solid;
+    padding: 1%;
+    border-width: 0.5px;
+    border-radius: 4px;
+    margin-top: 1.5%;
+    margin-left: 2.5%;
+    width: 90%;
+    background-color: var(#FFF);
+    height: 7vh;
+}
+
+.tbl_item:hover{
+    background-color: var(--c-white);
 }

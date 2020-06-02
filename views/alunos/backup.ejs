@@ -1,0 +1,30 @@
+<!-- Arquivo de back de códigos-->
+
+<!-- Atividades.ejs-->
+<!--  LISTA SOMENTE ATIVIDADES 
+    Atividades não lidas:
+        <% for (var mensagem of mensagens){ %>
+            <% if (mensagem.lida == 0){ %>
+                <a href="/aluno/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+            <% } %>
+        <% } %>
+    
+    Todas as Atividades:
+        <% for (var mensagem of mensagens){ %>
+            <a href="/aluno/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+        <% } %>
+
+-->
+
+<!--Feedback-->
+<!---Lista somente mensagens
+    Dúvidas enviadas por você:
+        <% for (var mensagem of mensagensDe){ %>
+            <a href="/aluno/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+        <% } %>
+    
+    Respostas obtidas:
+        <% for (var mensagem of mensagensPara){ %>
+            <a href="/aluno/mensagem/<%= mensagem.id %>"><p><%= mensagem.assunto %></p></a>
+        <% } %>
+-->
