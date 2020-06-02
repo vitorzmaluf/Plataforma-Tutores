@@ -1,5 +1,16 @@
-/*main styles*/
 
+body::-webkit-scrollbar {
+    width: 0.25rem;
+}
+body::-webkit-scrollbar-track {
+    background: var(--c-white);
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #000000;
+}
+
+/*main styles*/
 main {
     display: flex;
     flex-direction: row;
@@ -7,6 +18,8 @@ main {
     height: 83vh;
     width: 100%;
 }
+
+
 
 .user-inf {
     display: flex;
@@ -203,4 +216,30 @@ main {
 
 .itens-view .item:hover{
     background-color: var(--c-white);
+}
+
+.qst-view{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* border: solid 1px #000; */
+    overflow-y: auto;
+}
+
+.qst-box{
+    border: solid 0.5px var(--c-blue);
+    background-color: #FFF;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    height: 15vh;
+    width: 80%;
+    margin-left: 10%;
+    font-size: 20px;
+    padding: 2%;
+    flex-direction: column;
+}
+
+.qst-box .btn{
+    height: 5vh;
+    margin: 1% 0% 0% 90%;
 }
