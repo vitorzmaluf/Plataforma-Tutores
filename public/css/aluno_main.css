@@ -104,11 +104,17 @@ main {
 
 .atv_view {
     display: flex;
+    border: solid;
+    border-color: var(--f-link);
+    border-width: 1px;
     flex-direction: column;
-    width: 100%;
+    padding: 1%;
+    margin-top: 1.5%;
+    margin-left: 5%;
+    width: 90%;
+    height: 68vh;
+    background-color:#FFF;
 }
-
-
 
 .tbl_title{
     width: 95%;
@@ -125,10 +131,10 @@ main {
     padding: 1%;
     border-width: 0.5px;
     border-radius: 4px;
-    margin-top: 1.5%;
-    margin-left: 2.5%;
-    width: 90%;
-    background-color: var(#FFF);
+    margin-bottom: 1.5%;
+    margin-left: 1%;
+    width: 95%;
+    background-color: #FFF;
     height: 7vh;
 }
 
@@ -138,14 +144,9 @@ main {
 
 .tbl_atv {
     margin-top: 3%;
-    margin-left: 5%;
-    width: 90%;
+    width: 99%;
     height: 68vh;
     padding: 1%;
-    border: solid;
-    border-color: var(--f-link);
-    border-width: 1px;
-    background-color: #FFFFFF;
     overflow-y: auto;
 }
 

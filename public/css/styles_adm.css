@@ -119,7 +119,7 @@ body::-webkit-scrollbar-thumb {
 
 /*Green btn on Header*/
 .login-pg {
-    margin-left: 5%;
+    margin-left: 80%;
     background-color: var(--c-green);
     height: 2rem;
     width: 10rem;
