@@ -56,15 +56,20 @@
         <div class="tables">
             <div class="tbl">
                 <div class="tbl-title">TUTORES </div>
-                <% for (var tutor of tutores){ %>
-                    <div class="tbl-item"><%= tutor.nome %></div>
-                <% } %>
+                <div class="tbl-view">
+                    <% for (var tutor of tutores){ %>
+                        <div class="tbl-item"><%= tutor.nome %></div>
+                    <% } %>
+                </div>
             </div>
+
             <div class="tbl">
                 <div class="tbl-title">ALUNOS </div>
-                <% for (var aluno of alunos){ %>
-                    <div class="tbl-item"><%= aluno.nome %></div>
-                <% } %>
+                <div class="tbl-view">
+                    <% for (var aluno of alunos){ %>
+                        <div class="tbl-item"><%= aluno.nome %></div>
+                    <% } %>
+                </div>
             </div>
         </div>
     </main>
