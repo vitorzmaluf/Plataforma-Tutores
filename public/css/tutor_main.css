@@ -52,19 +52,20 @@ main {
     display: flex;
     flex-direction: column;
     height: 70vh;
-    width: 70%;
-    padding: 3%;
-}
-
-.tbl {
-    width: 100%;
-    height: 60vh;
+    width: 65%;
     padding: 1%;
-    /* margin-bottom: 3%; */
+    margin-top: 5vh;
     border: solid;
     border-color: var(--f-link);
     border-width: 1px;
     background-color: #FFFFFF;
+}
+
+.tbl {
+    width: 99.5%;
+    height: 65vh;
+    padding: 1%;
+    /* margin-bottom: 3%; */
     overflow-y: auto;
 }
 
@@ -128,15 +129,23 @@ main {
 }
 
 .tbl_atv {
-    margin-top: 3%;
+    margin-top: 2%;
     margin-left: 5%;
     width: 90%;
-    height: 60vh;
+    height: 65vh;
     padding: 1%;
     border: solid;
     border-color: var(--f-link);
     border-width: 1px;
     background-color: #FFFFFF;
+    /* overflow-y: auto; */
+}
+
+.tbl_atv .tbl{
+    width: 99%;
+    height: 58vh;
+    padding: 1%;
+    /* margin-bottom: 3%; */
     overflow-y: auto;
 }
 
@@ -231,6 +240,11 @@ main {
     border-color: var(--f-link);
     border-width: 1px;
     background-color: #FFFFFF;
+}
+
+.tbl_ava .tbl{
+    width: 99%;
+    height: 58vh;
     overflow-y: auto;
 }
 
@@ -241,7 +255,7 @@ main {
     border-width: 0.5px;
     border-radius: 4px;
     margin-top: 1.5%;
-    margin-left: 2.5%;
+    margin-left: 3.5%;
     width: 90%;
     background-color: var(#FFF);
     height: 15vh;
