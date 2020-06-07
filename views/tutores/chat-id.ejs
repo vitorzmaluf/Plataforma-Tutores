@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-    <title>Tutor - Atividades</title>
+    <title>TUTORES Reforço Escolar</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -38,7 +38,7 @@
                     <span class="link-text"><p style="font-size: 10px; margin-top: 30px;">Painel</p><strong>Inicial</strong></span>
                 </a>
             </li>
-            <li class="nav-active">
+            <li class="nav-item">
                 <a href="/tutor/atividades" class="nav-link">
                     <span class="link-text"><p style="font-size: 10px; margin-top: 30px;">Atividade</p><strong>Online</strong></span>
                 </a>
@@ -48,7 +48,7 @@
                     <span class="link-text"><p style="font-size: 10px; margin-top: 30px;">Avaliações &</p><strong>Feedback</strong></span>
                 </a>
             </li>
-            <li class="nav-item">
+            <li class="nav-active">
                 <a href="/tutor/duvidas" class="nav-link">
                     <span class="link-text"><p style="font-size: 10px; margin-top: 30px;">Chat de</p><strong>Dúvidas</strong></span>
                 </a>
@@ -56,23 +56,23 @@
         </ul>
     </nav>
     <main>
-        <div class="atv_view">
-            <div class="btn_atv"><a href="/tutor/add-atv">+ Adicionar Tarefa</a></div>
-            <div class="tbl_atv">
-                <div class="tbl_title">ATIVIDADES</div>
-                <!-- Div de cada atividade-->
-                <div class="tbl">
-                    <div class="tbl_item">a</div>
-                    <div class="tbl_item">b</div>
-                    <div class="tbl_item">c</div>
-                    <div class="tbl_item">d</div>
-                    <div class="tbl_item">a</div>
-                    <div class="tbl_item">b</div>
-                    <div class="tbl_item">c</div>
-                    <div class="tbl_item">d</div>
-                </div>
+        <div class="qst-view">
 
+            <!-- Template de pergunta-->
+            <div class="qst-box">
+                <% for (var mensagem of mensagens){ %>
+                    <% if(mensagem.remetente == usuario.id){ %>
+                        <div style="text-align: right;"><%= mensagem.corpo %></div></a>
+                    <% } else{%>
+                        <div style="text-align: left;"><%= mensagem.corpo %></div></a>
+                    <% } %>
+                <% } %>
+                <form action="/tutor/chat-id/<%= id %>" method="post">
+                    <input type="text" name="resposta">
+                    <input type="submit" class="btn" value="Responder">
+                </form>
             </div>
+            
         </div>
     </main>
 </body>

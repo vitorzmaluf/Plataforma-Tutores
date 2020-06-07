@@ -62,15 +62,9 @@
             
             <div class="tbl_atv">
                 <!-- Div de cada atividade-->
-                <div class="tbl_item">a</div>
-                <div class="tbl_item">b</div>
-                <div class="tbl_item">c</div>
-                <div class="tbl_item">d</div>
-                <div class="tbl_item">a</div>
-                <div class="tbl_item">b</div>
-                <div class="tbl_item">c</div>
-                <div class="tbl_item">d</div>
-
+                <% for (var atividade of atividades){ %>
+                    <a href="/aluno/atividade/<%= atividade.id %>"><div class="tbl_item"><%= atividade.assunto %></div></a>
+                <% } %>
             </div>
         </div>
         </div>

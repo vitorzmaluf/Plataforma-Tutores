@@ -49,7 +49,7 @@
                 </a>
             </li>
             <li class="nav-active">
-                <a href="/tutor/duvidas" class="nav-link">
+                <a href="/tutor/chat" class="nav-link">
                     <span class="link-text"><p style="font-size: 10px; margin-top: 30px;">Chat de</p><strong>Dúvidas</strong></span>
                 </a>
             </li>
@@ -59,24 +59,12 @@
         <div class="qst-view">
 
             <!-- Template de pergunta-->
-            <div class="qst-box">
-                [Nome do Aluno]: Professor, pq o céu é azul?<br>
-                Resposta: <input type="text"><br>
-                <input type="button" class="btn" value="Responder">
-            </div>
+            <% for (var aluno of alunos){ %>
+                <div class="qst-box">
+                    <a href="/tutor/chat-id/<%= aluno.id %>">Chat com <%= aluno.nome %></a>
+                </div>
+            <% } %>
 
-            <div class="qst-box">
-                [Nome do Aluno]: Professor, pq o céu é azul?<br>
-                Resposta: <input type="text"><br>
-                <input type="button" class="btn" value="Responder">
-            </div>
-
-            <div class="qst-box">
-                [Nome do Aluno]: Professor, pq o céu é azul?<br>
-                Resposta: <input type="text"><br>
-                <input type="button" class="btn" value="Responder">
-            </div>
-            
         </div>
     </main>
 </body>

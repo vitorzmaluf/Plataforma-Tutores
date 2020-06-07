@@ -1,0 +1,9 @@
+
+<h1><%= atividade.assunto %></h1>
+<br>
+<h3><%= atividade.corpo %></h3>
+
+<form method="post" action="/aluno/atividade/<%= atividade.id %>">
+    <label>Coloque aqui a resolução da atividade: <input type="text" name="resposta"></label>
+    <input type="submit">
+</form>

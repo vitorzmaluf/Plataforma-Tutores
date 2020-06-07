@@ -81,9 +81,9 @@
                     Feedback do Tutor
                 </div>
                 <div class="itens-view">
-                    <div class="item">a2</div>
-                    <div class="item">b2</div>
-                    <div class="item">c2</div>
+                    <% for (var feedback of feedbacks){ %>
+                        <a href="/aluno/feedback/<%= feedback.id %>"><div class="item"><%= feedback.assunto %> <%= feedback.corpo %> <%= feedback.nota %></div></a>
+                    <% } %>
                 </div>
             </div>
         </div>
