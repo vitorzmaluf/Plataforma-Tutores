@@ -1,0 +1,10 @@
+
+<h1><%= atividade.assunto %></h1>
+<br>
+<h3><%= atividade.corpo %></h3>
+
+<form method="post" action="/tutor/feedback-atv/<%= atividade.id %>">
+    <label>Coloque aqui o feedback da atividade: <input type="text" name="resposta"></label>
+    <label>Coloque aqui a nota da atividade: <input type="number" name="nota"></label>
+    <input type="submit">
+</form>
