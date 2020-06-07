@@ -11,6 +11,8 @@ Tabela Mensagem:
 tipos:
 0 - mensagem
 1 - atividade
+2 - resposta de atividade
+3 - feedback (único tipo que terá nota)
 */
 
 const http = require('http');
@@ -135,18 +137,6 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           app.get('/aluno/add-duvida', function(req, resp){
             resp.render('alunos/add-duvida');
           });
-          //Atividade
-          app.get('/aluno/atividades', function(req, resp){
-            resp.render('alunos/atividades');
-          });
-          //Feedback
-          app.get('/aluno/feedback', function(req, resp){
-            resp.render('alunos/feedback');
-          });
-          //Chat
-          app.get('/aluno/chat', function(req, resp){
-            resp.render('alunos/chat');
-          });
 
           app.post('/aluno/add-duvida', function(req, resp){//adiciona dúvida somente para o tutor responsável pelo aluno
             var titulo = req.body.titulo;
@@ -184,24 +174,79 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           });
 
           app.get('/aluno/atividades', function(req, resp) {//lista todas as atividades e avaliações enviadas para o aluno
-            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id], 1);
-            pool.query(query, (err, mensagens)=>{
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id, 1]);
+            pool.query(query, (err, atividades)=>{
               if (err) throw err;
-              resp.render('alunos/atividades', {mensagens});
+              resp.render('alunos/atividades', {atividades});
             });
           });
-
-          app.get('/aluno/duvidas', function(req, resp) {//lista todas as duvidas enviadas e recebidas (chat)
-            var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ? AND tipo = ?', [user[0].id], 0);
-            pool.query(query, (err, mensagensDe)=>{
+          app.get('/aluno/atividade/:id', function(req, resp) {//vizualizacao de uma mensagem em detalhes
+            atvId = req.params.id;
+            var query = mysql.format('SELECT * FROM mensagem WHERE id = ?', atvId);
+            pool.query(query, (err, atividadeBanco)=>{
               if (err) throw err;
-              var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id], 0);
-              pool.query(query, (err, mensagensPara)=>{
+              atividade = atividadeBanco[0];
+              resp.render('alunos/atividade', {atividade});
+              var query = mysql.format('UPDATE mensagem SET lida = 1 WHERE id = ?', atvId);
+              pool.query(query, (err)=>{
                 if (err) throw err;
-                resp.render('alunos/duvidas', {mensagensDe, mensagensPara});
               });
             });
           });
+          app.post('/aluno/atividade/:id', function(req, resp){
+            atvId = req.params.id;
+            var respostaAlu = req.body.resposta;
+            var query = mysql.format('SELECT * FROM mensagem WHERE id = ?', atvId);
+            pool.query(query, (err, mensagem)=>{
+              if (err) throw err;
+              assunto = "RES: "+ mensagem[0].assunto;
+              var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida, tipo) VALUES (?, ?, ?, ?, ?, ?)', [assunto, respostaAlu, mensagem[0].destinatario, mensagem[0].remetente, 0, 2]);
+              pool.query(query, (err)=>{
+                if (err) throw err;
+              });
+            });
+            resp.redirect('/aluno/atividades');
+          });
+
+          app.get('/aluno/feedback', function(req, resp){//testar
+            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id, 3]);
+            pool.query(query, (err, feedbacks)=>{
+              if (err) throw err;
+              var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id, 1]);
+              pool.query(query, (err, atividades)=>{
+                if (err) throw err;
+                resp.render('alunos/feedback', {feedbacks, atividades});
+              });
+            })
+          });
+
+          app.get('/aluno/chat', function(req, resp){
+            var usuario = user[0];
+            var query = mysql.format('SELECT * FROM mensagem WHERE (remetente = ? AND tipo = 0) OR (destinatario = ? AND tipo = 0)', [user[0].id, user[0].id]);
+            pool.query(query, (err, mensagens)=>{
+              resp.render('alunos/chat', {mensagens, usuario});
+            });
+          });
+
+          app.post('/aluno/chat', function(req, resp){
+            var resposta = req.body.resposta;
+            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida, tipo) VALUES (?, ?, ?, (SELECT idt FROM `relac-tutor-alu` WHERE ida = ?), 0, 0)', ['mensagem por chat', resposta, user[0].id, user[0].id]);
+            pool.query(query, (err, results)=>{
+              resp.redirect('/aluno/chat');
+            });
+          });
+
+          // app.get('/aluno/duvidas', function(req, resp) {//lista todas as duvidas enviadas e recebidas (chat)
+          //   var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ? AND tipo = ?', [user[0].id], 0);
+          //   pool.query(query, (err, mensagensDe)=>{
+          //     if (err) throw err;
+          //     var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ? AND tipo = ?', [user[0].id], 0);
+          //     pool.query(query, (err, mensagensPara)=>{
+          //       if (err) throw err;
+          //       resp.render('alunos/duvidas', {mensagensDe, mensagensPara});
+          //     });
+          //   });
+          // });
 
 
         }else if(user[0].tipo==2){//tipo tutor
@@ -216,38 +261,65 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
             });
           });
 
+          app.get('/tutor/atividades', function(req, resp){//listar todas atividades
+            var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ? and tipo = ?', [user[0].id, 1]);
+            pool.query(query, (err, atividades)=>{
+              if (err) throw err;
+              resp.render('tutores/atividades', {atividades});
+            });
+          });
+
           app.get('/tutor/add-atv', function(req, resp){//adicionar uma atividade
-            var query = mysql.format('SELECT id, nome FROM usuarios a, `relac-tutor-alu` b WHERE a.id = b.ida');
+            var query = mysql.format('SELECT * FROM usuarios where id = (select ida from `relac-tutor-alu` where idt = ?)', user[0].id);
             pool.query(query, (err, alunos)=>{
               if (err) throw err;
               resp.render('tutores/add-atv', {alunos});
             });
           });
-  
+
           app.post('/tutor/add-atv', function(req, resp){
             titulo = req.body.titulo; //para o banco é o assunto
             conteudo = req.body.conteudo; //para o banco é o corpo
             ida = req.body.alunosRelacionados;
-            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida) VALUES (?, ?, ?, ?, ?)', [titulo, conteudo, user[0].id, ida, 0]);
+            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida, tipo) VALUES (?, ?, ?, ?, ?, ?)', [titulo, conteudo, user[0].id, ida, 0, 1]);
             pool.query(query, (err, results)=>{
               if (err) throw err;
               resp.redirect('/tutor/add-atv');
             });
           });
 
-          app.get('/tutor/atividades', function(req, resp){//listar todas atividades
-            var query = mysql.format('SELECT * FROM mensagem WHERE remetente = ? and tipo = ?', [user[0].id, 0]);
-            pool.query(query, (err, results)=>{
+          app.get('/tutor/chat', function(req, resp){
+            var resposta = req.body.resposta;
+            var query = mysql.format('SELECT * FROM usuarios where id = (select ida from `relac-tutor-alu` where idt = ?)', [user[0].id]);
+            pool.query(query, (err, alunos)=>{
               if (err) throw err;
-              resp.render('tutores/atv-online', results);
+              resp.render('tutores/chat', {alunos});
             });
           });
 
-          app.get('/tutor/duvidas', function(req, resp){//listar todas as duvidas
-            var query = mysql.format('SELECT * FROM mensagem WHERE destinatario = ?', [user[0].id, 0]);
+          app.get('/tutor/chat-id/:id', function(req, resp){
+            var resposta = req.body.resposta;
+            var id = req.params.id;
+
+            var usuario = user[0];
+            var query = mysql.format('SELECT * FROM mensagem WHERE (remetente = ? AND tipo = 0) OR (destinatario = ? AND tipo = 0)', [user[0].id, user[0].id]);
+            pool.query(query, (err, mensagens)=>{
+              resp.render('tutores/chat-id', {mensagens, usuario, id});
+            });
+            
+            // var query = mysql.format('SELECT * FROM usuarios where id = (select ida from `relac-tutor-alu` where idt = ?)', [user[0].id]);
+            // pool.query(query, (err, alunos)=>{
+            //   if (err) throw err;
+            //   resp.render('tutores/chat', {alunos});
+            // });
+          });
+
+          app.post('/tutor/chat-id/:id', function(req, resp){
+            var resposta = req.body.resposta;
+            var id = req.params.id;
+            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida, tipo) VALUES (?, ?, ?, (SELECT idt FROM `relac-tutor-alu` WHERE ida = ?), 0, 0)', ['mensagem por chat', resposta, user[0].id, user[0].id]);
             pool.query(query, (err, results)=>{
-              if (err) throw err;
-              resp.render('tutores/duvidas', results);
+              resp.redirect('/tutor/chat-id/'+id);
             });
           });
 
