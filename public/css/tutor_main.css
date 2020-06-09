@@ -323,6 +323,17 @@ main {
     overflow-y: auto;
 }
 
+.chat-view::-webkit-scrollbar {
+    width: 0.25rem;
+}
+.chat-view::-webkit-scrollbar-track {
+    background: var(--c-white);
+}
+
+.chat-view::-webkit-scrollbar-thumb {
+    background: var(--f-link);
+}
+
 .own-resp{
     font-size: 14px;
     color: #FFF;
