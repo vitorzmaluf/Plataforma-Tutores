@@ -283,16 +283,71 @@ main {
 .qst-box{
     border: solid 0.5px var(--c-blue);
     background-color: #FFF;
-    margin-top: 5%;
-    height: 15vh;
+    margin-top: 2%;
+    height: 65vh;
     width: 80%;
     margin-left: 10%;
     font-size: 20px;
     padding: 2%;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .qst-box .btn{
     height: 5vh;
     margin: 1% 0% 0% 90%;
+}
+
+
+.qst-input{
+    flex-direction: row;
+    margin-top: 2%;
+}
+
+.qst-input .resp{
+    height: 10vh;
+    width: 70%;
+}
+
+.qst-input .btn{
+    height: 5vh;
+    margin-left: 15%;
+    /* margin: 0% 2% 0% 90%; */
+}
+
+.chat-view{
+    width: 100%;
+    height: 48vh;
+    background-color: var(--c-white);
+    border: 2px solid var(--c-blue);
+    overflow-y: auto;
+}
+
+.own-resp{
+    font-size: 14px;
+    color: #FFF;
+    text-align: right;
+    margin: 1% 0% 1% 52%;
+    width: 45%;
+    border: 0.5px solid var(--c-blue);
+    background-color: var(--c-blue);
+    padding: 0.5%;
+}
+
+.anr-resp{
+    font-size: 14px;
+    color: var(--c-blue);
+    text-align: right;
+    margin: 1% 0% 1% 2%;
+    width: 45%;
+    border: 0.5px solid var(--c-blue);
+    background-color: #FFF;
+    padding: 0.5%;
+    text-align: left;
+}
+
+.list-chat{
+    border: 1px solid #000;
+    padding: 2%;
+    margin-bottom: 2%;
 }

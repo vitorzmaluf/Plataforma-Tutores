@@ -60,16 +60,20 @@
 
             <!-- Template de pergunta-->
             <div class="qst-box">
-                <% for (var mensagem of mensagens){ %>
-                    <% if(mensagem.remetente == usuario.id){ %>
-                        <div style="text-align: right;"><%= mensagem.corpo %></div></a>
-                    <% } else{%>
-                        <div style="text-align: left;"><%= mensagem.corpo %></div></a>
-                    <% } %>
-                <% } %>
+                <div class="chat-view">
+                    <% for (var mensagem of mensagens){ %>
+                        <% if(mensagem.remetente == usuario.id){ %>
+                            <div class="own-resp"><%= mensagem.corpo %></div></a>
+                            <% } else{%>
+                                <div class="anr-resp"><%= mensagem.corpo %></div></a>
+                                <% } %>
+                                <% } %>
+                    </div>
                 <form action="/tutor/chat-id/<%= id %>" method="post">
-                    <input type="text" name="resposta">
-                    <input type="submit" class="btn" value="Responder">
+                    <div class="qst-input">
+                        <input type="text" class="resp" name="resposta">
+                        <input type="submit" class="btn" value="Responder">
+                    </div>
                 </form>
             </div>
             

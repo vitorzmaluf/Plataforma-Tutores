@@ -61,7 +61,9 @@
             <!-- Template de pergunta-->
             <% for (var aluno of alunos){ %>
                 <div class="qst-box">
-                    <a href="/tutor/chat-id/<%= aluno.id %>">Chat com <%= aluno.nome %></a>
+                    <div class="list-chat">
+                        <a href="/tutor/chat-id/<%= aluno.id %>">Chat com <%= aluno.nome %></a>
+                    </div>
                 </div>
             <% } %>
 
