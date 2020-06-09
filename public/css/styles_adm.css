@@ -119,7 +119,7 @@ body::-webkit-scrollbar-thumb {
 
 /*Green btn on Header*/
 .login-pg {
-    margin-left: 80%;
+    margin-left: 5%;
     background-color: var(--c-green);
     height: 2rem;
     width: 10rem;
@@ -140,17 +140,18 @@ body::-webkit-scrollbar-thumb {
 
 /*Logoff btn Header*/
 .logoff-pg {
+    display: flex;
     margin-left: 60%;
     background-color: var(--c-red);
     height: 2rem;
-    width: 16rem;
+    width: 20vw;
 }
 
 .logoff-item {
     display: flex;
     align-items: center;
     text-decoration: none;
-    width: 20vw;
+    width: 100%;
     height: 2rem;
 }
 
