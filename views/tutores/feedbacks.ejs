@@ -63,7 +63,7 @@
                 <% for (resolucao of resolucoes){ %>
                         <div class="tbl_item">
                             <a href="/tutor/feedback-atv/<%= resolucao.id %>"><%= resolucao.assunto %></a>
-                            <% if(resolucao.nota) { %>
+                            <% if(resolucao.nota >=0) { %>
                                 <div class="tbl_nota">Nota: <%= resolucao.nota %></div>
                             <% } %>
                         </div>
