@@ -227,7 +227,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
               resp.render('alunos/chat', {mensagens, usuario});
             });
           });
-
+          
           app.post('/aluno/chat', function(req, resp){
             var resposta = req.body.resposta;
             var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida, tipo) VALUES (?, ?, ?, (SELECT idt FROM `relac-tutor-alu` WHERE ida = ?), 0, 0)', ['mensagem por chat', resposta, user[0].id, user[0].id]);
@@ -388,7 +388,7 @@ app.post('/login', function(req, resp){//post da view login (consulta o banco)
           app.post('/tutor/chat-id/:id', function(req, resp){
             var resposta = req.body.resposta;
             var id = req.params.id;
-            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida, tipo) VALUES (?, ?, ?, (SELECT idt FROM `relac-tutor-alu` WHERE ida = ?), 0, 0)', ['mensagem por chat', resposta, user[0].id, user[0].id]);
+            var query = mysql.format('INSERT INTO mensagem (assunto, corpo, remetente, destinatario, lida, tipo) VALUES (?, ?, ?, (SELECT ida FROM `relac-tutor-alu` WHERE idt = ?), 0, 0)', ['mensagem por chat', resposta, user[0].id, user[0].id]);
             pool.query(query, (err, results)=>{
               resp.redirect('/tutor/chat-id/'+id);
             });
